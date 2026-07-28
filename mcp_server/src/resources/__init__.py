@@ -5,7 +5,8 @@ Contains all MCP resource implementations.
 Resources provide passive, read-only context data.
 """
 
-# Import resources here once they are created
-# from .policy_resources import *
+from .policy_resources import setup_policy_resources
 
-__all__ = []
+__all__ = [
+    'setup_policy_resources',
+]

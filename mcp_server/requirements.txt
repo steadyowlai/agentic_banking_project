@@ -1,3 +1,5 @@
+# MCP dependencies
+fastmcp
 mcp
 
 uvicorn
