@@ -1,0 +1,10 @@
+# Agent Gateway dependencies
+fastapi
+uvicorn
+langgraph
+langchain-core
+langchain-openai
+mcp
+httpx
+python-dotenv
+pydantic
