@@ -11,9 +11,10 @@ from typing import Optional
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # mcp_server/src/utils/
 SRC_DIR = os.path.dirname(BASE_DIR)                    # mcp_server/src/
 MCP_SERVER_ROOT = os.path.dirname(SRC_DIR)             # mcp_server/
+PROJECT_ROOT = os.path.dirname(MCP_SERVER_ROOT)        # root project directory
 
 # Use environment variables for Docker, fallback to local paths for development
-POLICY_DIR = os.getenv('POLICY_DIR', os.path.join(MCP_SERVER_ROOT, 'data', 'policies'))
+POLICY_DIR = os.getenv('POLICY_DIR', os.path.join(PROJECT_ROOT, 'data', 'policies'))
 
 
 def get_policy_content(customer_type: str) -> Optional[str]:

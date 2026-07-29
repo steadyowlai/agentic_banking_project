@@ -11,13 +11,14 @@ from typing import Optional, Dict, List, Any
 
 # Path resolution for Docker and local development
 # This file: mcp_server/src/utils/database.py
-# Target:    mcp_server/data/database/
+# Target:    data/database/ (at project root)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # mcp_server/src/utils/
 SRC_DIR = os.path.dirname(BASE_DIR)                    # mcp_server/src/
 MCP_SERVER_ROOT = os.path.dirname(SRC_DIR)             # mcp_server/
+PROJECT_ROOT = os.path.dirname(MCP_SERVER_ROOT)        # root project directory
 
 # Use environment variables for Docker, fallback to local paths for development
-DB_PATH = os.getenv('DB_PATH', os.path.join(MCP_SERVER_ROOT, 'data', 'database', 'business.db'))
+DB_PATH = os.getenv('DB_PATH', os.path.join(PROJECT_ROOT, 'data', 'database', 'business.db'))
 
 
 def get_db_connection() -> sqlite3.Connection:

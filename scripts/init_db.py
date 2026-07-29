@@ -5,8 +5,11 @@ import os
 
 # Use environment variable for Docker, fallback to local path for development
 # This file: mcp_server/scripts/init_db.py
-# Target:    mcp_server/data/database/business.db
-DB_FILE = os.getenv('DB_PATH', os.path.join(os.path.dirname(__file__), '..', 'data', 'database', 'business.db'))
+# Target:    data/database/business.db (at project root)
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__)) # scripts/
+PROJECT_ROOT = os.path.dirname(SCRIPTS_DIR)           # root project directory
+
+DB_FILE = os.getenv('DB_PATH', os.path.join(PROJECT_ROOT, 'data', 'database', 'business.db'))
 
 def setup_database():
     #remove existing db file if it exists
