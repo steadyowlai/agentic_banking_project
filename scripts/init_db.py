@@ -5,7 +5,7 @@ import os
 
 # Use environment variable for Docker, fallback to local path for development
 # This file: mcp_server/scripts/init_db.py
-# Target:    data/database/business.db (at project root)
+# Target: data/database/business.db (at project root)
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__)) # scripts/
 PROJECT_ROOT = os.path.dirname(SCRIPTS_DIR)           # root project directory
 

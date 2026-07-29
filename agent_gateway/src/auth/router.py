@@ -12,12 +12,10 @@ from .auth_service import verify_user_credentials, create_access_token, decode_a
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 security = HTTPBearer()
 
-
-# Pydantic Schemas
+#pydantic schemas
 class LoginRequest(BaseModel):
     username: str
     password: str
-
 
 class TokenResponse(BaseModel):
     access_token: str
@@ -26,8 +24,7 @@ class TokenResponse(BaseModel):
     username: str
     customer_type: str
 
-
-# Authentication Dependency for Protected Routes
+#Authentication dependency for protected routes
 def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> Dict[str, Any]:
     token = credentials.credentials
     payload = decode_access_token(token)
