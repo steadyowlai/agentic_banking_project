@@ -1,0 +1,1 @@
+this folder contains business.db created from scripts/init_db.py

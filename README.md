@@ -26,7 +26,7 @@ pytest mcp_server
 
 2. Run MCP Client test:
    ```bash
-   python agent_gateway/src/test_mcp_client.py
+   python agent_gateway/tests/test_mcp_client_connection.py
    ```
 
 ## Configuration
