@@ -8,8 +8,6 @@ Tests cover:
 - Error handling
 """
 
-import pytest
-
 from src.utils.database import (
     get_db_connection,
     get_user_by_username,
@@ -17,7 +15,6 @@ from src.utils.database import (
     get_loan_by_id,
     get_loans_by_user_id,
 )
-
 
 class TestDatabaseConnection:
     """Test database connection functionality"""

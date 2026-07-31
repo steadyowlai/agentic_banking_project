@@ -25,3 +25,7 @@ MCP_SERVER_URL = os.getenv("MCP_SERVER_URL", "http://127.0.0.1:8000/sse")
 
 #client side data dir
 CLIENT_SIDE_DATA_DIR = os.path.join(PROJECT_ROOT, "client_side_data")
+
+#llm settings
+LLM_MODEL = os.getenv("LLM_MODEL", "gpt-5-nano")
+LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.3"))

@@ -14,12 +14,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fastmcp import FastMCP
 
 from resources import setup_policy_resources
+from tools.loan_tools import setup_loan_tools
 
 #initialize fastmcp server
 mcp = FastMCP("Banking MCP Server")
 
-#register resources
+#register resources and tools
 setup_policy_resources(mcp)
+setup_loan_tools(mcp)
 
 if __name__ == "__main__":
     mcp.run(transport='sse')
