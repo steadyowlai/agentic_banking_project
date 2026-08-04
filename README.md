@@ -1,6 +1,8 @@
-# Bank Loan Agentic Platform
+# Bank AI Loan Assistant
 
-Agentic banking platform combining **Model Context Protocol (MCP)**, **LangGraph**, and **FastAPI** for secure, automated loan processing, account inquiries, policy evaluations, and financial calculations under a Zero Trust Architecture.
+A conversational assistant designed to help bank customers review their loan statuses, understand lending rules, and calculate borrowing capacities in real time.
+
+Under the hood, the system uses **LangGraph** for multi-step tool execution, **FastMCP (Model Context Protocol)** to safely query database records and policy documents without exposing credentials to the LLM, and **FastAPI** for authentication and API routing.
 
 ---
 
