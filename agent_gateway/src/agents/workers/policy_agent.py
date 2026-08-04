@@ -1,4 +1,9 @@
 """
+THIS AGENT IS NOT ACTIVE IN THE CURRENT IMPLEMENTATION.
+"""
+
+
+"""
 Policy Worker Agent for Agent Gateway (Hierarchical Multi-Agent Pattern)
 
 has 2 nodes:
