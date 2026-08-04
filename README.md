@@ -1,8 +1,8 @@
 # Bank AI Loan Assistant
 
-A conversational assistant designed to help bank customers review their loan statuses, understand lending rules, and calculate borrowing capacities in real time.
+A conversational assistant designed to help bank customers review their loan statuses, understand lending rules and calculate borrowing capacities in real time.
 
-Under the hood, the system uses **LangGraph** for multi-step tool execution, **FastMCP (Model Context Protocol)** to safely query database records and policy documents without exposing credentials to the LLM, and **FastAPI** for authentication and API routing.
+Under the hood, the system uses **LangGraph** for multi-step tool execution, **FastMCP (Model Context Protocol)** to safely query database records and policy documents without exposing credentials to the LLM and **FastAPI** for authentication and API routing.
 
 ---
 
