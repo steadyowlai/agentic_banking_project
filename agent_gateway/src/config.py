@@ -21,7 +21,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 365  #1 year
 DB_PATH = os.getenv("DB_PATH", os.path.join(PROJECT_ROOT, "data", "database", "business.db"))
 
 #mcp server url
-MCP_SERVER_URL = os.getenv("MCP_SERVER_URL", "http://127.0.0.1:8000/sse")
+MCP_SERVER_URL = os.getenv("MCP_SERVER_URL", "http://127.0.0.1:8001/sse")
 
 #client side data dir
 CLIENT_SIDE_DATA_DIR = os.path.join(PROJECT_ROOT, "client_side_data")

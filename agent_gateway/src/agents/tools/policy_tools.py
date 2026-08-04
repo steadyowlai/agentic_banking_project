@@ -24,11 +24,12 @@ async def fetch_bank_policy(customer_type: str) -> str:
     Use this tool whenever the user asks about rules, limits, eligibility, maturity, or policies.
     
     Args:
-        customer_type: The type of customer (e.g., 'retail', 'commercial', 'wealth').
+        customer_type: The type of customer ('retail', 'corporate').
     """
     resource_uri = f"policy://{customer_type.lower()}"
     policy_doc = f"Policy documentation for {customer_type} is unavailable."
     
+    print(f"[DEBUG][TOOL: fetch_bank_policy] Querying MCP Policy resource: '{resource_uri}'")
     try:
         async with sse_client(MCP_SERVER_URL) as (read, write):
             async with ClientSession(read, write) as session:
@@ -36,7 +37,9 @@ async def fetch_bank_policy(customer_type: str) -> str:
                 policy_data = await session.read_resource(resource_uri)
                 if policy_data and policy_data.contents:
                     policy_doc = policy_data.contents[0].text
+                    print(f"[DEBUG][TOOL: fetch_bank_policy] Retrieved {len(policy_doc)} chars of policy text")
     except Exception as e:
+        print(f"[DEBUG][TOOL: fetch_bank_policy] Error reading resource '{resource_uri}': {e}")
         return f"Error reading policy resource {resource_uri}: {e}"
         
     return policy_doc

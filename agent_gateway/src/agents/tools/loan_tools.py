@@ -13,7 +13,8 @@ from mcp.client.sse import sse_client
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 AGENTS_DIR = os.path.dirname(TOOLS_DIR)
 SRC_DIR = os.path.dirname(AGENTS_DIR)
-PROJECT_ROOT = os.path.dirname(SRC_DIR)
+AGENT_GATEWAY_DIR = os.path.dirname(SRC_DIR)
+PROJECT_ROOT = os.path.dirname(AGENT_GATEWAY_DIR)  # one level above agent_gateway/
 if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
@@ -43,12 +44,15 @@ async def get_my_loans_tool(config: RunnableConfig) -> str:
     Use this tool whenever the user asks about their own loan balances or statuses.
     """
     #get user id from runnable config
-    user_id = config.get("configurable", {}).get("user_id", "usr_alice")
+    user_id = config.get("configurable", {}).get("user_id")
+    if not user_id:
+        return "Error: Authentication required - user_id not provided."
     
     #get auth header from runnable config
     auth_header = _get_dev_token(user_id)
     headers = {"Authorization": auth_header} if auth_header else {}
 
+    print(f"[DEBUG][TOOL: get_my_loans] Calling MCP 'get_my_loans' for user_id='{user_id}'")
     try:
         #pass headers to sse_client so the MCP Server can decode the JWT
         async with sse_client(MCP_SERVER_URL, headers=headers) as (read, write):
@@ -60,9 +64,13 @@ async def get_my_loans_tool(config: RunnableConfig) -> str:
                 
                 #format response
                 if result and result.content:
-                    return result.content[0].text
+                    text_out = result.content[0].text
+                    preview = text_out[:90].replace('\n', ' ')
+                    print(f"[DEBUG][TOOL: get_my_loans] Received response: '{preview}...'")
+                    return text_out
                 return "No data returned from loan server."
     except Exception as e:
+        print(f"[DEBUG][TOOL: get_my_loans] Error: {e}")
         return f"Error connecting to loan server: {e}"
 
 
@@ -73,12 +81,15 @@ async def get_loan_details_tool(loan_id: str, config: RunnableConfig) -> str:
     Use this tool when the user asks for details, interest rates, or maturity dates for a specific loan.
     """
     #get user id from runnable config
-    user_id = config.get("configurable", {}).get("user_id", "usr_alice")
+    user_id = config.get("configurable", {}).get("user_id")
+    if not user_id:
+        return "Error: Authentication required - user_id not provided."
     
     #get auth header from runnable config
     auth_header = _get_dev_token(user_id)
     headers = {"Authorization": auth_header} if auth_header else {}
 
+    print(f"[DEBUG][TOOL: get_loan_details] Calling MCP 'get_loan_details' for loan_id='{loan_id}'")
     try:
         #pass headers to sse_client so the MCP Server can decode the JWT
         async with sse_client(MCP_SERVER_URL, headers=headers) as (read, write):
@@ -90,7 +101,11 @@ async def get_loan_details_tool(loan_id: str, config: RunnableConfig) -> str:
                 
                 #format response
                 if result and result.content:
-                    return result.content[0].text
+                    text_out = result.content[0].text
+                    preview = text_out[:90].replace('\n', ' ')
+                    print(f"[DEBUG][TOOL: get_loan_details] Received details: '{preview}...'")
+                    return text_out
                 return "No data returned from loan server."
     except Exception as e:
+        print(f"[DEBUG][TOOL: get_loan_details] Error: {e}")
         return f"Error connecting to loan server: {e}"

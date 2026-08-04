@@ -5,12 +5,12 @@ Authentication FastAPI Router & Endpoint Definitions
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 from .auth_service import verify_user_credentials, create_access_token, decode_access_token
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
-security = HTTPBearer()
+security = HTTPBearer(auto_error=False)
 
 #pydantic schemas
 class LoginRequest(BaseModel):
@@ -25,7 +25,9 @@ class TokenResponse(BaseModel):
     customer_type: str
 
 #Authentication dependency for protected routes
-def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> Dict[str, Any]:
+def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)) -> Dict[str, Any]:
+    if not credentials:
+        return {"user_id": "guest", "username": "guest", "customer_type": "guest"}
     token = credentials.credentials
     payload = decode_access_token(token)
     if not payload:

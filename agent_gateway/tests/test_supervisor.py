@@ -30,7 +30,8 @@ async def test_supervisor_react_agent():
         ]
     }
     
-    result = await supervisor_graph.ainvoke(initial_state)
+    config = {"configurable": {"thread_id": "test_supervisor_thread", "user_id": "usr_alice"}}
+    result = await supervisor_graph.ainvoke(initial_state, config=config)
     
     # Check that it generated an AIMessage
     assert len(result["messages"]) > 1

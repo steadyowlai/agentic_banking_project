@@ -19,16 +19,21 @@ def calculate(a: float, b: float, operation: Literal["add", "subtract", "multipl
         b: The second number.
         operation: The operation to perform ('add', 'subtract', 'multiply', 'divide').
     """
+    print(f"[DEBUG][TOOL: calculate] Computing: {a} {operation} {b}")
     op = operation.lower().strip()
     if op in ["add", "+"]:
-        return f"{a + b:,.2f}"
+        res = f"{a + b:,.2f}"
     elif op in ["subtract", "-"]:
-        return f"{a - b:,.2f}"
+        res = f"{a - b:,.2f}"
     elif op in ["multiply", "*"]:
-        return f"{a * b:,.2f}"
+        res = f"{a * b:,.2f}"
     elif op in ["divide", "/"]:
         if b == 0:
-            return "Error: Division by zero is undefined."
-        return f"{a / b:,.2f}"
+            res = "Error: Division by zero is undefined."
+        else:
+            res = f"{a / b:,.2f}"
     else:
-        return f"Error: Unsupported operation '{operation}'. Supported operations are add, subtract, multiply, divide."
+        res = f"Error: Unsupported operation '{operation}'. Supported operations are add, subtract, multiply, divide."
+        
+    print(f"[DEBUG][TOOL: calculate] Result: {res}")
+    return res

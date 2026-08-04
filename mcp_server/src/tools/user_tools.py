@@ -7,7 +7,6 @@ verifying JWT tokens before allowing database queries.
 
 import sys
 import os
-
 from fastmcp import Context
 
 #path resolution to access utils
@@ -20,18 +19,26 @@ from utils.database import get_user_by_id
 from utils.auth_utils import verify_and_decode_token
 
 
+def _extract_auth_header(ctx: Context) -> str:
+    """Extract Authorization header from the injected MCP Context."""
+    try:
+        if ctx.request_context and ctx.request_context.request:
+            req = ctx.request_context.request
+            return req.headers.get("authorization") or req.headers.get("Authorization") or ""
+    except Exception:
+        pass
+    return ""
+
 def setup_user_tools(mcp):
     """Register user tools with the FastMCP server instance."""
 
     @mcp.tool()
-    def get_my_profile(ctx: Context) -> str:
+    async def get_my_profile(ctx: Context) -> str:
         """
         Fetches profile information for the currently authenticated user.
         Requires a valid Bearer token in the authorization header.
         """
-        #extract headers from the fastmcp Context
-        headers = getattr(ctx.session, "headers", {}) if hasattr(ctx, "session") else {}
-        auth_header = headers.get("authorization", "")
+        auth_header = _extract_auth_header(ctx)
 
         #zero trust: verify token signature
         payload = verify_and_decode_token(auth_header)

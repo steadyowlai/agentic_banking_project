@@ -1,0 +1,23 @@
+# FastMCP & MCP Protocol
+fastmcp
+mcp
+
+# FastAPI & Web Server
+fastapi
+uvicorn
+starlette
+httpx
+
+# LangGraph & Agent Framework
+langgraph
+langchain-core
+langchain-openai
+
+# Configuration & Security
+python-dotenv
+pydantic
+pyjwt
+
+# Testing & Async
+pytest
+anyio

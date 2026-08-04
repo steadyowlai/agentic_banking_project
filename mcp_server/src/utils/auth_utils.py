@@ -6,7 +6,6 @@ Reads JWT_SECRET from the root .env file.
 """
 
 import os
-import sys
 from typing import Optional, Dict, Any
 import jwt
 from dotenv import load_dotenv
@@ -24,7 +23,6 @@ load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
 JWT_SECRET = os.getenv("JWT_SECRET", "super-secret-banking-key-change-in-prod-12345")
 JWT_ALGORITHM = "HS256"
 
-
 def verify_and_decode_token(token: str) -> Optional[Dict[str, Any]]:
     """
     Verify and decode a JWT access token. 
@@ -36,7 +34,6 @@ def verify_and_decode_token(token: str) -> Optional[Dict[str, Any]]:
     # strip 'Bearer ' prefix if present
     if token.startswith("Bearer "):
         token = token[7:]
-        
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         return payload
