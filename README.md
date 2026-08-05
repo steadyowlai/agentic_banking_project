@@ -58,7 +58,7 @@ The **Agent Gateway** (`agent_gateway/`) hosts the LangGraph supervisor agent gr
 ```
 [START] --> [supervisor_node] <--> [tools (ToolNode)] --> [END]
 ```
-- **`supervisor_node`**: Formats conversation history, prepends strict guardrails and tool chaining recipes, and invokes `gpt-4o-mini` with bound tools.
+- **`supervisor_node`**: Formats conversation history, prepends strict guardrails and tool chaining recipes, and invokes LLM with bound tools.
 - **`router`**: Inspects the model's response; if tool calls are requested, routes to `tools`, otherwise outputs the final response to `END`.
 - **`MemorySaver`**: In-memory checkpointer maintaining multi-turn context keyed by `thread_id`.
 
